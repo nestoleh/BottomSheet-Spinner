@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BottomSheet Spinner Sample</string>
+    <string name="button_check">Check</string>
 </resources>

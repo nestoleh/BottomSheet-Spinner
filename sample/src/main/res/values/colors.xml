@@ -11,4 +11,6 @@
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
+
+    <color name="ic_launcher_background">@color/colorPrimary</color>
 </resources>
