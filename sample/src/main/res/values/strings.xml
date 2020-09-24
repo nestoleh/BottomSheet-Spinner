@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">BottomSheet Spinner Sample</string>
-    <string name="button_check">Check</string>
+    <string name="button_check_selected">Check selected</string>
+    <string name="title_select_shape">Select the shape</string>
+    <string name="label_selected_item">Selected item</string>
+    <string name="label_selected_item_position">Selected item position</string>
+    <string name="button_clear">Clear</string>
+    <string name="button_shuffle">Shuffle</string>
+    <string name="button_reset">Reset</string>
+    <string name="button_set">Set</string>
+    <string name="label_set_selection_position">Set selection position</string>
 </resources>
