@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StyleRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -19,6 +20,10 @@ import kotlinx.android.synthetic.main.dialog_spinner_bottom_menu.*
  * @author oleg.nestyuk
  */
 internal class SpinnerBottomMenuDialogFragment : BottomSheetDialogFragment() {
+
+    @StyleRes
+    private var dialogTheme: Int = DEFAULT_DIALOG_THEME
+
     var adapter: BottomSheetSpinnerAdapter<*, *>? = null
         set(value) {
             field = value
@@ -29,7 +34,12 @@ internal class SpinnerBottomMenuDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.BottomSheetSpinner_DialogTheme)
+        initData()
+        setStyle(STYLE_NORMAL, dialogTheme)
+    }
+
+    private fun initData() {
+        dialogTheme = arguments?.getInt(EXTRA_DIALOG_THEME) ?: DEFAULT_DIALOG_THEME
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,5 +93,19 @@ internal class SpinnerBottomMenuDialogFragment : BottomSheetDialogFragment() {
 
     companion object {
         val LAYOUT: Int = R.layout.dialog_spinner_bottom_menu
+
+        val DEFAULT_DIALOG_THEME = R.style.BottomSheetSpinner_DialogTheme
+
+        private const val EXTRA_DIALOG_THEME = "dialog_theme"
+
+        fun newInstance(
+            @StyleRes themeRes: Int = DEFAULT_DIALOG_THEME
+        ): SpinnerBottomMenuDialogFragment {
+            val fragment = SpinnerBottomMenuDialogFragment()
+            fragment.arguments = Bundle().apply {
+                putInt(EXTRA_DIALOG_THEME, themeRes)
+            }
+            return fragment
+        }
     }
 }

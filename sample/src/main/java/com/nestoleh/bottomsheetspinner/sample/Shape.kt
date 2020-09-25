@@ -30,5 +30,11 @@ enum class Shape(
         title = "Pentagon",
         description = "In geometry, a pentagon is any five-sided polygon or 5-gon",
         drawableRes = R.drawable.ic_pentagon
+    ),
+
+    Hexagon(
+        title = "Hexagone",
+        description = "A hexagon is a six-sided polygon or 6-gon",
+        drawableRes = R.drawable.ic_hexagon
     )
 }

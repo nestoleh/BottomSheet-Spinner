@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomSheetSpinner">
+        <attr name="bss_dialogTheme" format="reference" />
+        <attr name="bss_dialogRecyclerViewStyle" format="reference" />
+    </declare-styleable>
+</resources>

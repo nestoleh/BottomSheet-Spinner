@@ -48,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_ripple_dark"
                     android:paddingEnd="25dp"
+                    app:bss_dialogTheme="@style/MyBssDialog.Theme"
                     tools:ignore="RtlSymmetry"
                     tools:minHeight="100dp" />
             </FrameLayout>

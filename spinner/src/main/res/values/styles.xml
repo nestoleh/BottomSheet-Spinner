@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BottomSheetSpinner.DialogTheme" parent="Theme.Design.Light.BottomSheetDialog"/>
+
+    <style name="BottomSheetSpinner" />
+
+    <style name="BottomSheetSpinner.DialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bss_dialogRecyclerViewStyle">@style/BottomSheetSpinner.RecyclerViewStyle</item>
+    </style>
+
+    <style name="BottomSheetSpinner.RecyclerViewStyle" />
 </resources>

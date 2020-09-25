@@ -6,4 +6,23 @@
         <item name="colorAccent">@color/colorSecondary</item>
     </style>
 
+    <!-- Custom bottom sheet spinner dialog theme -->
+
+    <style name="MyBssDialog" />
+
+    <style name="MyBssDialog.Theme" parent="BottomSheetSpinner.DialogTheme">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="bottomSheetStyle">@style/MyBssDialog.BottomSheetStyle</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="bss_dialogRecyclerViewStyle">@style/MyBssDialog.RecyclerViewStyle</item>
+    </style>
+
+    <style name="MyBssDialog.BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet_dialog</item>
+    </style>
+
+    <style name="MyBssDialog.RecyclerViewStyle">
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
 </resources>

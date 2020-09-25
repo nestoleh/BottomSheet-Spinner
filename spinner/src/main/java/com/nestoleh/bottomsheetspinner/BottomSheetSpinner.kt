@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View.OnClickListener
 import android.widget.FrameLayout
+import androidx.annotation.StyleRes
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +45,8 @@ class BottomSheetSpinner : FrameLayout {
         dialog?.dismissAllowingStateLoss()
     }
 
+    @StyleRes
+    private var dialogTheme: Int = SpinnerBottomMenuDialogFragment.DEFAULT_DIALOG_THEME
     private var dialogTag: String? = null
     private var dialog: SpinnerBottomMenuDialogFragment? = null
 
@@ -51,7 +54,7 @@ class BottomSheetSpinner : FrameLayout {
         get() = (context as FragmentActivity).supportFragmentManager
 
     private val onClickListener: OnClickListener = OnClickListener {
-        val localDialog = dialog ?: SpinnerBottomMenuDialogFragment()
+        val localDialog = dialog ?: SpinnerBottomMenuDialogFragment.newInstance(dialogTheme)
         localDialog.adapter = adapter
         localDialog.showAllowingStateLost(fragmentManager, provideDialogTag())
         dialog = localDialog
@@ -60,21 +63,37 @@ class BottomSheetSpinner : FrameLayout {
     private var selectedPosition: Int = NO_POSITION
 
     constructor(context: Context) : super(context) {
-        initView()
+        initView(context)
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        initView()
+        initView(context, attrs)
     }
 
     constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
-        initView()
+        initView(context, attrs)
     }
 
-    private fun initView() {
+    private fun initView(context: Context, attrs: AttributeSet? = null) {
+        initParameters(context, attrs)
         setOnClickListener(onClickListener)
+    }
+
+    private fun initParameters(context: Context, attrs: AttributeSet?) {
+        val typedArray = context.theme.obtainStyledAttributes(
+            attrs, R.styleable.BottomSheetSpinner, 0, 0
+        )
+        try {
+            dialogTheme =
+                typedArray.getResourceId(
+                    R.styleable.BottomSheetSpinner_bss_dialogTheme,
+                    dialogTheme
+                )
+        } finally {
+            typedArray.recycle()
+        }
     }
 
     override fun onAttachedToWindow() {
