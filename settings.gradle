@@ -1,1 +1,2 @@
 include ':spinner', ':sample'
+rootProject.name = "spinner"
