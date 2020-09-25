@@ -10,7 +10,7 @@ import com.nestoleh.bottomsheetspinner.sample.Shape
 
 class ShapeViewHolder(
     itemView: View,
-    onItemClickListener: BottomSheetSpinnerItemClickListener
+    onItemClickListener: BottomSheetSpinnerItemClickListener?
 ) : BottomSheetSpinnerItemViewHolder(itemView, onItemClickListener) {
 
     private val shapeName: TextView by lazy { itemView.findViewById(R.id.shapeName) }
@@ -24,6 +24,7 @@ class ShapeViewHolder(
     }
 
     companion object {
-        const val LAYOUT: Int = R.layout.item_dropdown_shape
+        const val LAYOUT_SELECTED: Int = R.layout.item_shape_selected
+        const val LAYOUT_DROPDOWN: Int = R.layout.item_shape_dropdown
     }
 }

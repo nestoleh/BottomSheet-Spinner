@@ -10,14 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class BottomSheetSpinnerItemViewHolder(
     itemView: View,
-    private val onItemClickListener: BottomSheetSpinnerItemClickListener
+    private val onItemClickListener: BottomSheetSpinnerItemClickListener? = null
 ) : RecyclerView.ViewHolder(itemView) {
 
     init {
-        itemView.setOnClickListener {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                onItemClickListener.onItemClicked(position)
+        if (onItemClickListener != null) {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClickListener.onItemClicked(position)
+                }
             }
         }
     }

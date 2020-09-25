@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.dialog_spinner_bottom_menu.*
  * @author oleg.nestyuk
  */
 internal class SpinnerBottomMenuDialogFragment : BottomSheetDialogFragment() {
-    var adapter: BottomSheetSpinnerAdapter<*>? = null
+    var adapter: BottomSheetSpinnerAdapter<*, *>? = null
         set(value) {
             field = value
             if (isAdded) {
