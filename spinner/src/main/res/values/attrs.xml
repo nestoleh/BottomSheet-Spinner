@@ -3,5 +3,7 @@
     <declare-styleable name="BottomSheetSpinner">
         <attr name="bss_dialogTheme" format="reference" />
         <attr name="bss_dialogRecyclerViewStyle" format="reference" />
+        <attr name="bss_dialogTitle" format="string" />
+        <attr name="bss_dialogTitleStyle" format="reference" />
     </declare-styleable>
 </resources>

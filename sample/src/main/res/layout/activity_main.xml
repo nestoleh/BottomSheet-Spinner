@@ -49,6 +49,7 @@
                     android:background="@drawable/bg_ripple_dark"
                     android:paddingEnd="25dp"
                     app:bss_dialogTheme="@style/MyBssDialog.Theme"
+                    app:bss_dialogTitle="@string/title_select_shape"
                     tools:ignore="RtlSymmetry"
                     tools:minHeight="100dp" />
             </FrameLayout>

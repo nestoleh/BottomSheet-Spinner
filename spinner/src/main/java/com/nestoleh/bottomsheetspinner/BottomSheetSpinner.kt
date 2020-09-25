@@ -47,6 +47,7 @@ class BottomSheetSpinner : FrameLayout {
 
     @StyleRes
     private var dialogTheme: Int = SpinnerBottomMenuDialogFragment.DEFAULT_DIALOG_THEME
+    private var dialogTitle: String? = null
     private var dialogTag: String? = null
     private var dialog: SpinnerBottomMenuDialogFragment? = null
 
@@ -54,7 +55,8 @@ class BottomSheetSpinner : FrameLayout {
         get() = (context as FragmentActivity).supportFragmentManager
 
     private val onClickListener: OnClickListener = OnClickListener {
-        val localDialog = dialog ?: SpinnerBottomMenuDialogFragment.newInstance(dialogTheme)
+        val localDialog =
+            dialog ?: SpinnerBottomMenuDialogFragment.newInstance(dialogTheme, dialogTitle)
         localDialog.adapter = adapter
         localDialog.showAllowingStateLost(fragmentManager, provideDialogTag())
         dialog = localDialog
@@ -91,6 +93,7 @@ class BottomSheetSpinner : FrameLayout {
                     R.styleable.BottomSheetSpinner_bss_dialogTheme,
                     dialogTheme
                 )
+            dialogTitle = typedArray.getString(R.styleable.BottomSheetSpinner_bss_dialogTitle)
         } finally {
             typedArray.recycle()
         }

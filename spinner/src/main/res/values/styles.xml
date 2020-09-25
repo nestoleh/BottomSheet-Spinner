@@ -5,7 +5,15 @@
 
     <style name="BottomSheetSpinner.DialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bss_dialogRecyclerViewStyle">@style/BottomSheetSpinner.RecyclerViewStyle</item>
+        <item name="bss_dialogTitleStyle">@style/BottomSheetSpinner.TitleStyle</item>
     </style>
 
     <style name="BottomSheetSpinner.RecyclerViewStyle" />
+
+    <style name="BottomSheetSpinner.TitleStyle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
 </resources>

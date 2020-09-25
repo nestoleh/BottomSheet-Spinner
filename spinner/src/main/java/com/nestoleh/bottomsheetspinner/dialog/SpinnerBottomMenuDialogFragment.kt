@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.StyleRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -23,6 +25,7 @@ internal class SpinnerBottomMenuDialogFragment : BottomSheetDialogFragment() {
 
     @StyleRes
     private var dialogTheme: Int = DEFAULT_DIALOG_THEME
+    private var dialogTitle: String? = null
 
     var adapter: BottomSheetSpinnerAdapter<*, *>? = null
         set(value) {
@@ -39,17 +42,30 @@ internal class SpinnerBottomMenuDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initData() {
-        dialogTheme = arguments?.getInt(EXTRA_DIALOG_THEME) ?: DEFAULT_DIALOG_THEME
+        arguments?.let { arguments ->
+            dialogTheme = arguments.getInt(EXTRA_DIALOG_THEME)
+            dialogTitle = arguments.getString(EXTRA_DIALOG_TITLE)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView()
+        initUI()
     }
 
     override fun onStart() {
         super.onStart()
         makeFullHeight()
+    }
+
+    private fun initUI() {
+        initTitle()
+        initRecyclerView()
+    }
+
+    private fun initTitle() {
+        titleTextView.text = dialogTitle
+        titleTextView.visibility = if (dialogTitle.isNullOrBlank()) GONE else VISIBLE
     }
 
     private fun initRecyclerView() {
@@ -97,13 +113,16 @@ internal class SpinnerBottomMenuDialogFragment : BottomSheetDialogFragment() {
         val DEFAULT_DIALOG_THEME = R.style.BottomSheetSpinner_DialogTheme
 
         private const val EXTRA_DIALOG_THEME = "dialog_theme"
+        private const val EXTRA_DIALOG_TITLE = "dialog_title"
 
         fun newInstance(
-            @StyleRes themeRes: Int = DEFAULT_DIALOG_THEME
+            @StyleRes themeRes: Int = DEFAULT_DIALOG_THEME,
+            dialogTitle: String? = null
         ): SpinnerBottomMenuDialogFragment {
             val fragment = SpinnerBottomMenuDialogFragment()
             fragment.arguments = Bundle().apply {
                 putInt(EXTRA_DIALOG_THEME, themeRes)
+                putString(EXTRA_DIALOG_TITLE, dialogTitle)
             }
             return fragment
         }
