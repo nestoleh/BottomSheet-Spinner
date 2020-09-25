@@ -5,6 +5,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.nestoleh.bottomsheetspinner.OnBottomSheetSpinnerItemSelected
 import com.nestoleh.bottomsheetspinner.sample.spinner.ShapeSpinnerAdapter
+import com.nestoleh.bottomsheetspinner.sample.spinner.ShapeSpinnerEntity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,19 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         resetButton.setOnClickListener { resetSpinnerAdapter() }
 
-        shuffleButton.setOnClickListener {
-            val shapes = Shape.values().apply { shuffle() }
-            spinnerAdapter.updateData(shapes.toList())
-        }
+        shuffleButton.setOnClickListener { shuffleData() }
 
         setPositionButton.setOnClickListener {
             hideKeyboard()
             val position = positionEditText.text.toString().toIntOrNull() ?: 0
-            try {
-                spinner.setSelection(position)
+            if (spinner.setSelectionIfPossible(position)) {
                 positionInputLayout.error = null
-            } catch (e: Exception) {
-                positionInputLayout.error = e.message
+            } else {
+                positionInputLayout.error =
+                    "Position $position can't be selected (out of range or item disabled)"
             }
         }
     }
@@ -51,7 +49,8 @@ class MainActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : OnBottomSheetSpinnerItemSelected {
 
             override fun onItemSelected(position: Int) {
-                selectedItemTextView.text = spinner.getSelectedItem<Shape>()?.name ?: "null"
+                selectedItemTextView.text =
+                    spinner.getSelectedItem<ShapeSpinnerEntity.Item>()?.value?.name ?: "null"
                 selectedItemPositionTextView.text = spinner.getSelectedItemPosition().toString()
             }
 
@@ -64,7 +63,23 @@ class MainActivity : AppCompatActivity() {
         resetSpinnerAdapter()
     }
 
+    private fun shuffleData() {
+        val shuffled = getSpinnerList().shuffled()
+        spinnerAdapter.updateData(shuffled)
+    }
+
     private fun resetSpinnerAdapter() {
-        spinnerAdapter.updateData(Shape.values().toList())
+        spinnerAdapter.updateData(getSpinnerList())
+    }
+
+    private fun getSpinnerList(): List<ShapeSpinnerEntity> {
+        var index = 1
+        val entities = ArrayList<ShapeSpinnerEntity>()
+        Shape.values().forEach { shape ->
+            entities.add(ShapeSpinnerEntity.Header("Group $index"))
+            index++
+            entities.add(ShapeSpinnerEntity.Item(shape))
+        }
+        return entities
     }
 }

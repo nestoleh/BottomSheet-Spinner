@@ -30,12 +30,7 @@ class BottomSheetSpinner : FrameLayout {
 
     private val adapterDataObserver = object : RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
-            val position = if (!isSelectedPositionInMeasures()) {
-                getFirstSelectablePosition()
-            } else {
-                selectedPosition
-            }
-            updateSelectedItem(position)
+            reinitSelectedPosition()
             updateDialogAdapter()
         }
     }
@@ -153,7 +148,7 @@ class BottomSheetSpinner : FrameLayout {
     private fun updateSelectedView() {
         val adapter = adapter
         clearSelectedView()
-        if (isSelectedPositionInMeasures() && adapter != null) {
+        if (isSelectedPositionValid() && adapter != null) {
             val position = selectedPosition
             val view = adapter.provideSelectedViewForPosition(this, position)
             view.isClickable = false
@@ -170,7 +165,7 @@ class BottomSheetSpinner : FrameLayout {
     }
 
     private fun reinitSelectedPosition() {
-        val newPosition = if (isSelectedPositionInMeasures()) {
+        val newPosition = if (isSelectedPositionValid()) {
             selectedPosition
         } else {
             getFirstSelectablePosition()
@@ -202,8 +197,8 @@ class BottomSheetSpinner : FrameLayout {
         return NO_POSITION
     }
 
-    private fun isSelectedPositionInMeasures(): Boolean {
-        return isPositionInMeasures(selectedPosition)
+    private fun isSelectedPositionValid(): Boolean {
+        return isPositionCanBeSelected(selectedPosition)
     }
 
     // dialog
@@ -234,7 +229,7 @@ class BottomSheetSpinner : FrameLayout {
     }
 
     private fun restoreSelectedPosition(restoredSelectedPosition: Int) {
-        if (isPositionInMeasures(restoredSelectedPosition)) {
+        if (isPositionCanBeSelected(restoredSelectedPosition)) {
             updateSelectedItem(restoredSelectedPosition)
         }
     }
@@ -272,17 +267,30 @@ class BottomSheetSpinner : FrameLayout {
         return selectedPosition
     }
 
+    fun isPositionCanBeSelected(position: Int): Boolean {
+        return position >= 0
+                && position < (adapter?.itemCount ?: 0)
+                && (adapter?.isEnabled(position) == true)
+    }
+
     fun setSelection(position: Int) {
         val adapter = adapter
-        if (adapter != null && position >= 0 && position < adapter.itemCount) {
+        if (adapter != null && isPositionCanBeSelected(position)) {
             updateSelectedItem(position)
         } else {
-            throw IllegalArgumentException("Selected position out of range")
+            throw IllegalArgumentException(
+                "Selection position out of range or can't be selected (isEnabled == false)"
+            )
         }
     }
 
-    fun isPositionInMeasures(position: Int): Boolean {
-        return position >= 0 && position < (adapter?.itemCount ?: 0)
+    fun setSelectionIfPossible(position: Int): Boolean {
+        return if (isPositionCanBeSelected(position)) {
+            setSelection(position)
+            true
+        } else {
+            false
+        }
     }
 
 
