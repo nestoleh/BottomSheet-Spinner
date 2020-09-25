@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BottomSheet Spinner Sample</string>
     <string name="button_check_selected">Check selected</string>
-    <string name="title_select_shape">Select the shape</string>
+    <string name="title_select_shape">Select a shape</string>
     <string name="label_selected_item">Selected item</string>
     <string name="label_selected_item_position">Selected item position</string>
     <string name="button_clear">Clear</string>
