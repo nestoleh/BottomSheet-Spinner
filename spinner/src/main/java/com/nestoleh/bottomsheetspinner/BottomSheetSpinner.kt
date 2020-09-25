@@ -25,7 +25,7 @@ class BottomSheetSpinner : FrameLayout {
 
     var onItemSelectedListener: OnBottomSheetSpinnerItemSelected? = null
 
-    private var adapter: BottomSheetSpinnerAdapter<*,*>? = null
+    private var adapter: BottomSheetSpinnerAdapter<*, *>? = null
 
     private val adapterDataObserver = object : RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
@@ -93,7 +93,7 @@ class BottomSheetSpinner : FrameLayout {
 
     // adapter
 
-    fun setAdapter(adapter: BottomSheetSpinnerAdapter<*,*>?) {
+    fun setAdapter(adapter: BottomSheetSpinnerAdapter<*, *>?) {
         resetAdapterListeners()
         this.adapter = adapter
         initAdapterListeners()
@@ -240,7 +240,7 @@ class BottomSheetSpinner : FrameLayout {
         val adapter = adapter
         val selection = selectedPosition
         return if (adapter != null && adapter.itemCount > 0 && selection >= 0) {
-            adapter.getItem(selection)
+            adapter.getItem(selection) as T?
         } else {
             null
         }

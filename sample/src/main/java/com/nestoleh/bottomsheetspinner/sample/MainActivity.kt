@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity() {
     private fun initUI() {
         initSpinner()
 
-        clearButton.setOnClickListener { spinnerAdapter.updateShapes(emptyList()) }
+        clearButton.setOnClickListener { spinnerAdapter.updateData(emptyList()) }
 
         resetButton.setOnClickListener { resetSpinnerAdapter() }
 
         shuffleButton.setOnClickListener {
             val shapes = Shape.values().apply { shuffle() }
-            spinnerAdapter.updateShapes(shapes.toList())
+            spinnerAdapter.updateData(shapes.toList())
         }
 
         setPositionButton.setOnClickListener {
@@ -65,6 +65,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resetSpinnerAdapter() {
-        spinnerAdapter.updateShapes(Shape.values().toList())
+        spinnerAdapter.updateData(Shape.values().toList())
     }
 }

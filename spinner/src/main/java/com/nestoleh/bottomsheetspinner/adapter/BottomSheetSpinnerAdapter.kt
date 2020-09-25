@@ -66,5 +66,5 @@ abstract class BottomSheetSpinnerAdapter
         return true
     }
 
-    abstract fun <T : Any> getItem(position: Int): T?
+    abstract fun getItem(position: Int): Any?
 }
