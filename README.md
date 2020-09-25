@@ -1,14 +1,15 @@
 <p align="center">
-<img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/icon.png" width="400" height="400" />
+<img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/icon.png" width="300" height="300" />
 </p>
 
 # BottomSheet Spinner
-
+Spinner with bottom sheet dialog for Android
 <p align="center">
-<img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/screenshot-1.jpg" width="270" height="585" />&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/screenshot-2.jpg" width="270" height="585" />&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/screenshot-1.jpg" width="270" height="585" />&nbsp;&nbsp;
+<img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/screenshot-2.jpg" width="270" height="585" />&nbsp;&nbsp;
 <img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/screenrecord-1.gif" width="270" height="585" />
 </p>
+
 
 ## What is this?
 This is a small library for spinner view with displaying options in bottom sheet dialog. This view doesn't improve or extend the default android Spinner. The library doesn't support any other types of showing menu, only bottom sheet dialog.
