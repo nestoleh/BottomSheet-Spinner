@@ -16,6 +16,11 @@ This is a small library for spinner view with displaying options in bottom sheet
 <br><br>
 Library based on BottomSheetDialogFragment and RecyclerView
 
+## Requirements
+- Material Components
+- AndroidX
+- Min SDK 21+
+
 ## Install
 Load AAR-file with the last release from <a href="https://github.com/nestoleh/BottomSheet-Spinner/releases/">the release page</a> and add it to your project
 
