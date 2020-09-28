@@ -42,7 +42,7 @@ class BottomSheetSpinner : FrameLayout {
 
     @StyleRes
     private var dialogTheme: Int = SpinnerBottomMenuDialogFragment.DEFAULT_DIALOG_THEME
-    private var dialogTitle: String? = null
+    var dialogTitle: String? = null
     private var dialogTag: String? = null
     private var dialog: SpinnerBottomMenuDialogFragment? = null
 
@@ -50,8 +50,8 @@ class BottomSheetSpinner : FrameLayout {
         get() = (context as FragmentActivity).supportFragmentManager
 
     private val onClickListener: OnClickListener = OnClickListener {
-        val localDialog =
-            dialog ?: SpinnerBottomMenuDialogFragment.newInstance(dialogTheme, dialogTitle)
+        dialog?.dismissAllowingStateLoss()
+        val localDialog = SpinnerBottomMenuDialogFragment.newInstance(dialogTheme, dialogTitle)
         localDialog.adapter = adapter
         localDialog.showAllowingStateLost(fragmentManager, provideDialogTag())
         dialog = localDialog
@@ -215,7 +215,8 @@ class BottomSheetSpinner : FrameLayout {
         return State(
             parentState = super.onSaveInstanceState(),
             selectedPosition = selectedPosition,
-            dialogTag = provideDialogTag()
+            dialogTag = provideDialogTag(),
+            dialogTitle = dialogTitle
         )
     }
 
@@ -224,6 +225,7 @@ class BottomSheetSpinner : FrameLayout {
         if (restoredState != null) {
             super.onRestoreInstanceState(state.parentState)
             restoreSelectedPosition(restoredState.selectedPosition)
+            dialogTitle = state.dialogTitle
             restoreDialog(restoredState.dialogTag)
         }
     }
@@ -298,7 +300,8 @@ class BottomSheetSpinner : FrameLayout {
     private data class State(
         val parentState: Parcelable?,
         val selectedPosition: Int,
-        val dialogTag: String?
+        val dialogTag: String?,
+        val dialogTitle: String?
     ) : Parcelable
 
     companion object {

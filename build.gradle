@@ -1,8 +1,8 @@
 buildscript {
     ext{
         kotlin_version = "1.4.10"
-        lib_version = '0.1.1'
-        lib_version_code = 2
+        lib_version = '0.1.2'
+        lib_version_code = 3
     }
 
     repositories {
