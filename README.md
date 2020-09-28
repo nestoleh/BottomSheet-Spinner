@@ -2,7 +2,7 @@
 <img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/icon.png" width="300" height="300" />
 </p>
 
-# BottomSheet Spinner
+# BottomSheet Spinner [![](https://jitpack.io/v/nestoleh/BottomSheet-Spinner.svg)](https://jitpack.io/#nestoleh/BottomSheet-Spinner)
 Spinner with bottom sheet dialog for Android
 <p align="center">
 <img src="https://github.com/nestoleh/BottomSheet-Spinner/blob/master/static/screenshot-1.jpg" width="270" height="585" />&nbsp;&nbsp;
@@ -22,7 +22,19 @@ Library based on BottomSheetDialogFragment and RecyclerView
 - Min SDK 21+
 
 ## Install
-Load AAR-file with the last release from <a href="https://github.com/nestoleh/BottomSheet-Spinner/releases/">the release page</a> and add it to your project
+Add it in your root build.gradle at the end of repositories:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+Add this line to your app's dependencies:
+```
+implementation 'com.github.nestoleh:bottomsheet-spinner:version'
+```
 
 ## Using
 
