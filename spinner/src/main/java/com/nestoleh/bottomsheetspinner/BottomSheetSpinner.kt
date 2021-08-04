@@ -7,7 +7,6 @@ import android.view.MotionEvent
 import android.view.View.OnClickListener
 import android.widget.FrameLayout
 import androidx.annotation.StyleRes
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,6 @@ import com.nestoleh.bottomsheetspinner.adapter.BottomSheetSpinnerAdapter
 import com.nestoleh.bottomsheetspinner.adapter.BottomSheetSpinnerItemClickListener
 import com.nestoleh.bottomsheetspinner.dialog.SpinnerBottomMenuDialogFragment
 import kotlinx.android.parcel.Parcelize
-import java.lang.IllegalStateException
 import java.util.*
 
 /**
@@ -52,8 +50,13 @@ class BottomSheetSpinner : FrameLayout {
         get() {
             return when (val c = context) {
                 is FragmentActivity -> c.supportFragmentManager
-                is ContextThemeWrapper -> (c.baseContext as FragmentActivity).supportFragmentManager
-                else -> throw IllegalStateException("Unexpected context value")
+                is android.view.ContextThemeWrapper ->
+                    (c.baseContext as FragmentActivity).supportFragmentManager
+                is androidx.appcompat.view.ContextThemeWrapper ->
+                    (c.baseContext as FragmentActivity).supportFragmentManager
+                else -> throw IllegalStateException(
+                    "Unexpected context value ${context::class.java.canonicalName}"
+                )
             }
         }
 
