@@ -1,6 +1,7 @@
 package com.nestoleh.bottomsheetspinner
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -47,18 +48,18 @@ class BottomSheetSpinner : FrameLayout {
     private var dialog: SpinnerBottomMenuDialogFragment? = null
 
     private val fragmentManager: FragmentManager
-        get() {
-            return when (val c = context) {
-                is FragmentActivity -> c.supportFragmentManager
-                is android.view.ContextThemeWrapper ->
-                    (c.baseContext as FragmentActivity).supportFragmentManager
-                is androidx.appcompat.view.ContextThemeWrapper ->
-                    (c.baseContext as FragmentActivity).supportFragmentManager
-                else -> throw IllegalStateException(
-                    "Unexpected context value ${context::class.java.canonicalName}"
-                )
-            }
+        get() = context.findFragmentManager()
+
+    private fun Context.findFragmentManager(): FragmentManager {
+        return when (this) {
+            is FragmentActivity -> this.supportFragmentManager
+            is ContextWrapper -> this.baseContext.findFragmentManager()
+            else -> throw IllegalStateException(
+                "Unexpected context value ${context::class.java.canonicalName}," +
+                        " result context need to be FragmentActivity"
+            )
         }
+    }
 
     private val onClickListener: OnClickListener = OnClickListener {
         dialog?.dismissAllowingStateLoss()
@@ -222,7 +223,7 @@ class BottomSheetSpinner : FrameLayout {
 
     // save & restore state
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         return State(
             parentState = super.onSaveInstanceState(),
             selectedPosition = selectedPosition,
